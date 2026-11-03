@@ -68,6 +68,7 @@ const DEFAULTS = {
   dayStart: 4,
   splash: true,
   music: true,
+  rei: true,
   seeded: false,
 };
 

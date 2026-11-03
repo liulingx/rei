@@ -138,6 +138,10 @@ select { width: auto; }
 .room-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(11, 18, 38, .72) 0%, rgba(11, 18, 38, .25) 34%, transparent 55%); }
 .room-text { position: absolute; z-index: 1; left: max(var(--gutter), calc((100% - var(--wrap)) / 2)); top: 50%; transform: translateY(-58%); }
 .greet { font-size: clamp(40px, 6.4vw, 80px); line-height: 1.1; font-weight: 600; letter-spacing: .1em; color: var(--moon); margin: 0 0 18px; text-shadow: 0 2px 30px rgba(7, 12, 31, .6); }
+/* 她说的话：灰紫蓝的明朝体，比正文安静一点 */
+.rei-line { font-family: var(--jp); color: var(--lav-2); font-size: 17px; letter-spacing: .08em; margin: 0 0 16px; text-shadow: 0 1px 16px rgba(7, 12, 31, .7); }
+.rei-line.small { font-size: 14px; margin: 14px 0 0; color: var(--lav); }
+.toast.rei { font-family: var(--jp); color: var(--lav-2); letter-spacing: .06em; }
 .moon-line { display: flex; align-items: center; gap: 0; color: var(--ink-2); font-size: 14px; margin: 0; }
 .moon-line .moon { margin-right: 10px; }
 .moon .moon-dark { fill: #1b2547; stroke: rgba(242, 237, 237, .18); stroke-width: .6; }

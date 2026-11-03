@@ -61,10 +61,13 @@ export function debouncePatch(fn, ms) {
 }
 
 let toastTimer = null;
-export function toast(msg) {
+// rei：传入她说的那句日语时，换成她的样式
+export function toast(msg, rei = '') {
   const el = document.getElementById('toast');
-  if (!el) return;
-  el.textContent = msg;
+  if (!el || (!msg && !rei)) return;
+  el.textContent = rei ?`「${rei}」` : msg;
+  el.lang = rei ? 'ja' : '';
+  el.classList.toggle('rei', !!rei);
   el.classList.add('on');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('on'), 2200);

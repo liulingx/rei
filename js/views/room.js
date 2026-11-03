@@ -4,6 +4,7 @@ import { esc, html, dayKey, viewUrl, uid, toast, greetingFor } from '../util.js'
 import { moonInfo, moonSvg } from '../moon.js';
 import { STAGES } from './tian.js';
 import { folderState } from '../backup.js';
+import { roomLine } from '../rei.js';
 
 const MAX_IMAGE = 20 * 1024 * 1024;
 
@@ -30,6 +31,7 @@ export default async function room(root, { settings }) {
       <img class="room-img" src="img/room.jpg" width="1536" height="1024" alt="月光照进空房间，她坐在窗边，窗外是映着月亮的梯田">
       <div class="room-text">
         <p class="greet" lang="ja">${esc(greetingFor(settings))}</p>
+        ${roomLine(new Date(), today) ? `<p class="rei-line" lang="ja">「${esc(roomLine(new Date(), today))}」</p>` : ''}
         <p class="moon-line">${moonSvg(m.phase, 18)}<span lang="ja">今夜の月</span>${m.name ? `<span class="sep">·</span><span lang="ja">${m.name}</span>` : ''}<span class="sep">·</span><span>月齢 ${m.age.toFixed(1)}</span></p>
       </div>
     </section>

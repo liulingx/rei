@@ -5,6 +5,7 @@ import * as player from './player.js';
 import * as rain from './rain.js';
 import { esc, debounce, revokeViewUrls, sessionFlag, reducedMotion, html, greetingFor } from './util.js';
 import { BUILTIN } from './tracks.js';
+import * as rei from './rei.js';
 import room from './views/room.js';
 import hua from './views/hua.js';
 import cidian from './views/cidian.js';
@@ -100,8 +101,9 @@ async function start() {
   }
   const settings = await db.getSettings();
   setName(settings);
+  rei.setEnabled(settings.rei);
   splash(settings);
-  window.addEventListener('settings', e => setName(e.detail));
+  window.addEventListener('settings', e => { setName(e.detail); rei.setEnabled(e.detail.rei); });
   window.addEventListener('hashchange', queueRender);
   queueRender();
 

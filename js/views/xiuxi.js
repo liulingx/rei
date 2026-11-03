@@ -2,6 +2,7 @@
 import * as db from '../db.js';
 import * as rain from '../rain.js';
 import * as player from '../player.js';
+import { pick } from '../rei.js';
 import { esc, html, uid, toast, fmtShort, dayKey, reducedMotion, debounce } from '../util.js';
 
 const MAX_TRACK = 60 * 1024 * 1024;
@@ -105,7 +106,12 @@ export default async function xiuxi(root) {
   root.addEventListener('click', async e => {
     const b = e.target.closest('button');
     if (!b) return;
-    if (b.dataset.act === 'rain') { await rain.toggle(); return; }
+    if (b.dataset.act === 'rain') {
+      const wasOn = rain.isOn();
+      await rain.toggle();
+      if (!wasOn && rain.isOn() && pick('rain')) toast('', pick('rain'));
+      return;
+    }
     if (b.dataset.play !== undefined) {
       const i = Number(b.dataset.play);
       const st = player.state();
@@ -125,13 +131,14 @@ export default async function xiuxi(root) {
       await db.put('papers', { id: uid(), text, at: new Date().toISOString() });
       paper.value = '';
       await clearDraft();
-      toast('留下了');
+      toast('留下了', pick('keep'));
       drawPapers();
       return;
     }
     if (b.dataset.act === 'let') {
       if (!paper.value.trim()) return;
       await clearDraft();
+      if (pick('let')) setTimeout(() => toast('', pick('let')), 900);
       if (reducedMotion()) { paper.value = ''; return; }
       paper.classList.add('letting');
       setTimeout(() => { paper.value = ''; paper.classList.remove('letting'); }, 900);

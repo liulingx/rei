@@ -1,5 +1,6 @@
 // 田：每块田长到苗、青、穗哪一档由主人说了算；同一时间只放一个“下一次”
 import * as db from '../db.js';
+import { pick } from '../rei.js';
 import { esc, html, uid, toast, dayKey, fmtShort, fmtDay, daysBetween, debouncePatch } from '../util.js';
 
 export const STAGES = ['苗', '青', '穗'];
@@ -131,7 +132,7 @@ export default async function tian(root, { settings }) {
       if (!text) { toast('先写一个“下一次”'); card.querySelector('[data-k="next"]').focus(); return; }
       await db.put('harvest', { id: uid(), fieldId: id, text, date: today });
       await db.put('fields', { ...f, next: '' });
-      toast('收进“收过的”了');
+      toast('收进“收过的”了', pick('done'));
       draw();
     }
     if (b.dataset.act === 'swap') {
@@ -139,6 +140,7 @@ export default async function tian(root, { settings }) {
       const input = card.querySelector('[data-k="next"]');
       input.value = '';
       input.focus();
+      if (f.next) toast('', pick('swap'));
     }
     if (b.dataset.act === 'remove') {
       if (!confirm(`删掉「${f.name}」这块田？“收过的”记录会一起删掉，找不回来。`)) return;

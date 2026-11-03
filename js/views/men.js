@@ -29,6 +29,7 @@ export default async function men(root, { settings }) {
         <label class="men-row">白天 11–22 点<input data-greet="day" maxlength="24" value="${esc(settings.greet.day)}"></label>
         <label class="men-row">夜里<input data-greet="night" maxlength="24" value="${esc(settings.greet.night)}"></label>
         <label class="chk"><input type="checkbox" data-set="splash" ${settings.splash ? 'checked' : ''}> 每次打开先停一下标题卡</label>
+        <label class="chk"><input type="checkbox" data-set="rei" ${settings.rei ? 'checked' : ''}> 让她偶尔说一句话（日语）</label>
         <label class="chk"><input type="checkbox" data-set="music" ${settings.music ? 'checked' : ''}> 进门后放钢琴曲（第一次点页面时开始，右上角随时能停）</label>
         <label class="men-row">一天从几点开始
           <select data-set="dayStart">
@@ -116,6 +117,7 @@ export default async function men(root, { settings }) {
   root.addEventListener('change', async e => {
     const t = e.target;
     if (t.dataset.set === 'splash') { await db.saveSettings({ splash: t.checked }); toast('记下了'); }
+    if (t.dataset.set === 'rei') { await db.saveSettings({ rei: t.checked }); toast('记下了'); }
     if (t.dataset.set === 'music') { await db.saveSettings({ music: t.checked }); toast(t.checked ? '下次进门会放' : '下次进门不放了'); }
     if (t.dataset.set === 'dayStart') { await db.saveSettings({ dayStart: Number(t.value) }); toast('记下了'); }
     if (t.dataset.act === 'import') {

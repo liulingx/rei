@@ -1,6 +1,7 @@
 // 词典：日语生词本 + 自己的词。翻卡复习，不计分
 import * as db from '../db.js';
 import { esc, html, uid, toast, dayKey, fmtShort } from '../util.js';
+import { pick } from '../rei.js';
 
 let lastTab = 'jp';
 
@@ -126,7 +127,7 @@ export default async function cidian(root) {
       rec = { ...(editing || {}), id: editing?.id || uid(), kind: 'own', word, meaning, history, added: editing?.added || now, updated: now };
     }
     await db.put('words', rec);
-    toast(editing ? '改好了' : `收下了「${word}」`);
+    toast(editing ? '改好了' : `收下了「${word}」`, editing ? '' : pick('word'));
     closeForm();
     draw();
   });

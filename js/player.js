@@ -34,7 +34,8 @@ function fadeIn() {
   audio.volume = 0;
   const t0 = performance.now();
   const step = now => {
-    const k = Math.min(1, (now - t0) / 2500);
+    // 动画帧的时间戳可能略早于 t0，要夹在 0–1 之间
+    const k = Math.max(0, Math.min(1, (now - t0) / 2500));
     audio.volume = volume * k;
     if (k < 1 && !audio.paused) requestAnimationFrame(step);
   };

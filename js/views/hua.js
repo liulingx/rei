@@ -2,6 +2,7 @@
 import * as db from '../db.js';
 import { esc, html, dayKey, fmtDay, fmtShort, fmtTime, debounce } from '../util.js';
 import { renderCard, cardHtml } from '../titlecard.js';
+import { lineOfDay } from '../rei.js';
 
 const PROMPTS = [
   '今天看见了什么？',
@@ -46,6 +47,7 @@ export default async function hua(root, { params, settings }) {
       <div class="hua-grid">
         <div class="hua-card">
           <div class="tc" id="tc"></div>
+          ${lineOfDay('hua', date) ? `<p class="rei-line small" lang="ja">「${esc(lineOfDay('hua', date))}」</p>` : ''}
         </div>
         <div class="hua-form">
           <label class="field-label" for="hua-t">标题</label>
